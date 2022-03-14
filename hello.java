@@ -635,3 +635,162 @@ import java.util.*;
 //     }
 
 // }
+
+
+//facade
+// interface MobileShop{
+//     public void modelNo();
+//     int getPrice();
+// }
+// class Iphone implements MobileShop{
+//     @Override
+//     public void modelNo() {
+//         System.out.println("Iphone 13 Pro");
+//     }
+//     @Override
+//     public int getPrice() {
+//         return 120000;
+//     }
+// }
+// class Samsung implements MobileShop{
+//     @Override
+//     public void modelNo() {
+//         System.out.println("Samsung galaxy a2");
+//     }
+//     @Override
+//     public int getPrice() {
+//         return 50000;
+//     }
+// }
+// class vivo implements MobileShop{
+//     @Override
+//     public void modelNo() {
+//         System.out.println("Vivo V23");
+//     }
+//     @Override
+//     public int getPrice() {
+//         return 20000;
+//     }
+// }
+// class Shopkeeper{
+//     private MobileShop iphone;
+//     private MobileShop samsung;
+//     private MobileShop vivo;
+//     Shopkeeper(){
+//         iphone=new Iphone();
+//         samsung=new Samsung();
+//         vivo=new vivo();
+//     }
+//     public void IphoneSale(){
+//         iphone.modelNo();
+//         System.out.println(iphone.getPrice());
+//     }
+//     public void SamsungSale(){
+//         samsung.modelNo();
+//         System.out.println(samsung.getPrice());
+//     }
+//     public void VivoSale(){
+//         vivo.modelNo();
+//         System.out.println(vivo.getPrice());
+//     }
+
+// }
+// /**
+//  * hello
+//  */
+// public class hello {
+
+//     public static void main(String[] args) {
+//         Shopkeeper shop=new Shopkeeper();
+//         shop.IphoneSale();
+//         shop.SamsungSale();
+//         shop.VivoSale();
+//     }
+// }
+
+//flyweight
+interface player{
+    void assignWeapon(String s);
+    void mission();
+}
+class Terrorist implements player{
+    private final String task;
+    private String weapon;
+    Terrorist(){
+        task="Plant a bomb";
+    }
+    @Override
+    public void assignWeapon(String s) {
+        weapon=s;
+    }
+    @Override
+    public void mission() {
+        System.out.println("Terrorist with weapon "+weapon+" | task Is "+task);
+    }
+}
+
+class counterTerrorist implements player{
+    private final String task;
+    private String weapon;
+    counterTerrorist(){
+        task="Diffuse bomb";
+    }
+    @Override
+    public void assignWeapon(String s) {
+        weapon=s;
+    }
+    @Override
+    public void mission() {
+        System.out.println("CounterTerrorist with weapon "+weapon+" | task Is "+task);
+    }
+}
+class playerFactory{
+    public static HashMap<String,player> hm=new HashMap<>();
+    public static player getPlayer(String type){
+        player p=null;
+        if(hm.containsKey(type)){
+            p=hm.get(type);
+        }else{
+            switch(type){
+                case "terrorist" :
+                 System.out.println("Terrorist created");
+                 p=new Terrorist();
+                 break;
+                case "counterterrorist" :
+                 System.out.println("counterTerrorist");
+                 p=new counterTerrorist();
+                 break;
+                default :
+                 System.out.println("Wront type");
+            }
+            hm.put(type, p);
+        }
+        return p;
+    }
+}
+public class hello{
+    private static String[] playerType =
+                    {"terrorist", "counterterrorist"};
+    private static String[] weapons =
+      {"AK-47", "Maverick", "Gut Knife", "Desert Eagle"};
+      public static void main(String[] args) {
+          for(int i=0;i<10;i++){
+              player p=playerFactory.getPlayer(getRandomType());
+              
+              p.assignWeapon(getRandWeapon());
+              p.mission();
+          }
+      }
+      public static String getRandomType(){
+          Random r=new Random();
+
+          int randInt=r.nextInt(playerType.length);
+          return playerType[randInt];
+      }
+      public static String getRandWeapon(){
+        Random r=new Random();
+
+        int randInt=r.nextInt(weapons.length);
+        return weapons[randInt];
+    }
+}
