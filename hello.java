@@ -709,88 +709,134 @@ import java.util.*;
 // }
 
 //flyweight
-interface player{
-    void assignWeapon(String s);
-    void mission();
-}
-class Terrorist implements player{
-    private final String task;
-    private String weapon;
-    Terrorist(){
-        task="Plant a bomb";
-    }
-    @Override
-    public void assignWeapon(String s) {
-        weapon=s;
-    }
-    @Override
-    public void mission() {
-        System.out.println("Terrorist with weapon "+weapon+" | task Is "+task);
-    }
-}
+// interface player{
+//     void assignWeapon(String s);
+//     void mission();
+// }
+// class Terrorist implements player{
+//     private final String task;
+//     private String weapon;
+//     Terrorist(){
+//         task="Plant a bomb";
+//     }
+//     @Override
+//     public void assignWeapon(String s) {
+//         weapon=s;
+//     }
+//     @Override
+//     public void mission() {
+//         System.out.println("Terrorist with weapon "+weapon+" | task Is "+task);
+//     }
+// }
 
-class counterTerrorist implements player{
-    private final String task;
-    private String weapon;
-    counterTerrorist(){
-        task="Diffuse bomb";
-    }
-    @Override
-    public void assignWeapon(String s) {
-        weapon=s;
-    }
-    @Override
-    public void mission() {
-        System.out.println("CounterTerrorist with weapon "+weapon+" | task Is "+task);
-    }
-}
-class playerFactory{
-    public static HashMap<String,player> hm=new HashMap<>();
-    public static player getPlayer(String type){
-        player p=null;
-        if(hm.containsKey(type)){
-            p=hm.get(type);
-        }else{
-            switch(type){
-                case "terrorist" :
-                 System.out.println("Terrorist created");
-                 p=new Terrorist();
-                 break;
-                case "counterterrorist" :
-                 System.out.println("counterTerrorist");
-                 p=new counterTerrorist();
-                 break;
-                default :
-                 System.out.println("Wront type");
-            }
-            hm.put(type, p);
-        }
-        return p;
-    }
-}
-public class hello{
-    private static String[] playerType =
-                    {"terrorist", "counterterrorist"};
-    private static String[] weapons =
-      {"AK-47", "Maverick", "Gut Knife", "Desert Eagle"};
-      public static void main(String[] args) {
-          for(int i=0;i<10;i++){
-              player p=playerFactory.getPlayer(getRandomType());
+// class counterTerrorist implements player{
+//     private final String task;
+//     private String weapon;
+//     counterTerrorist(){
+//         task="Diffuse bomb";
+//     }
+//     @Override
+//     public void assignWeapon(String s) {
+//         weapon=s;
+//     }
+//     @Override
+//     public void mission() {
+//         System.out.println("CounterTerrorist with weapon "+weapon+" | task Is "+task);
+//     }
+// }
+// class playerFactory{
+//     public static HashMap<String,player> hm=new HashMap<>();
+//     public static player getPlayer(String type){
+//         player p=null;
+//         if(hm.containsKey(type)){
+//             p=hm.get(type);
+//         }else{
+//             switch(type){
+//                 case "terrorist" :
+//                  System.out.println("Terrorist created");
+//                  p=new Terrorist();
+//                  break;
+//                 case "counterterrorist" :
+//                  System.out.println("counterTerrorist");
+//                  p=new counterTerrorist();
+//                  break;
+//                 default :
+//                  System.out.println("Wront type");
+//             }
+//             hm.put(type, p);
+//         }
+//         return p;
+//     }
+// }
+// public class hello{
+//     private static String[] playerType =
+//                     {"terrorist", "counterterrorist"};
+//     private static String[] weapons =
+//       {"AK-47", "Maverick", "Gut Knife", "Desert Eagle"};
+//       public static void main(String[] args) {
+//           for(int i=0;i<10;i++){
+//               player p=playerFactory.getPlayer(getRandomType());
               
-              p.assignWeapon(getRandWeapon());
-              p.mission();
-          }
-      }
-      public static String getRandomType(){
-          Random r=new Random();
+//               p.assignWeapon(getRandWeapon());
+//               p.mission();
+//           }
+//       }
+//       public static String getRandomType(){
+//           Random r=new Random();
 
-          int randInt=r.nextInt(playerType.length);
-          return playerType[randInt];
-      }
-      public static String getRandWeapon(){
-        Random r=new Random();
+//           int randInt=r.nextInt(playerType.length);
+//           return playerType[randInt];
+//       }
+//       public static String getRandWeapon(){
+//         Random r=new Random();
 
-        int randInt=r.nextInt(weapons.length);
-        return weapons[randInt];
-    }
-}
+//         int randInt=r.nextInt(weapons.length);
+//         return weapons[randInt];
+//     }
+// }
+
+// //proxy pattern
+// interface officeInternetAccess{
+//     void grantInternetAccess();
+// }
+// class RealInternetAccess implements officeInternetAccess{
+//     private String empname;
+//     RealInternetAccess(String name){
+//         this.empname=name;
+//     }
+//      @Override
+//      public void grantInternetAccess() {
+//          System.out.println("Internet Accesss granted for Employee "+empname);
+//      }
+// }
+// class proxyInternetAccess implements officeInternetAccess{
+//     private String empname;
+//     RealInternetAccess realAccess;
+//     proxyInternetAccess(String emp){
+//         this.empname=emp;
+//     }
+//     @Override
+//     public void grantInternetAccess() {
+//         if(getRole(empname)>5){
+//             realAccess=new RealInternetAccess(empname);
+//             realAccess.grantInternetAccess();
+//         }else{
+//             System.out.println("Employee Role is below 5 so No internet Access provided");
+//         }
+//     }
+//     private int getRole(String name){
+//         //return int on the basis of job level
+//         return 8;
+//     }
+// }
+
+// /**
+//  * hello
+//  */
+// public class hello {
+
+//     public static void main(String[] args) {
+//         officeInternetAccess access=new proxyInternetAccess("Aman");
+//         access.grantInternetAccess();
+//     }
+// }
