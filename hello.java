@@ -1,6 +1,28 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
+
+//Singleton
+// class Singleton{
+//     private static Singleton obj;
+//     private Singleton(){}
+//     public static Singleton getInstance(){
+//          if(obj==null){
+//              obj=new Singleton();
+//          }
+//          return obj;
+//      }
+//      public void getInfo(){
+//          System.out.println("Singleton");
+//      }
+// }
+// public class New {
+//     public static void main(String[] args) {
+//         Singleton obj=Singleton.getInstance();
+//         obj.getInfo();
+//     }
+// }
+
 //factory design pattern
 
 // abstract class plan{
