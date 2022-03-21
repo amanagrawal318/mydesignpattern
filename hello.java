@@ -650,12 +650,10 @@ import java.util.*;
 //         food f2=new nonvegFood(f1);
 //         System.out.println(f2.prepareFood());
 //         System.out.println(f2.getFoodPrice());
-
 //         food f3=new chineseFood(f1);
 //         System.out.println(f3.prepareFood());
 //         System.out.println(f3.getFoodPrice());
 //     }
-
 // }
 
 
@@ -862,3 +860,69 @@ import java.util.*;
 //         access.grantInternetAccess();
 //     }
 // }
+//bridge Pattern
+interface IMessageSender {
+    void SendMessage(String Message);
+  }
+  class SmsMessageSender implements IMessageSender {
+    @Override
+    public void SendMessage(String Message) {
+      System.out.println("'" + Message + "'   : This Message has been sent using SMS");
+    }
+  }
+  class EmailMessageSender implements IMessageSender {
+    @Override
+    public void SendMessage(String Message) {
+      System.out.println("'" + Message + "'   : This Message has been sent using Email");
+    }
+  }
+  abstract class AbstractMessage {
+    protected IMessageSender messageSender;
+  
+    public abstract void SendMessage(String Message);
+  }
+  class ShortMessage extends AbstractMessage {
+    public ShortMessage(IMessageSender messageSender) {
+      // Initialize the super class messageSender variable
+      this.messageSender = messageSender;
+    }
+    @Override
+    public void SendMessage(String Message) {
+      if (Message.length() <= 10) {
+        messageSender.SendMessage(Message);
+      } else {
+        System.out.println("Unable to send the message as length > 10 characters");
+      }
+    }
+  }
+  
+  class LongMessage extends AbstractMessage {
+    public LongMessage(IMessageSender messageSendor) {
+      this.messageSender = messageSendor;
+    }
+  
+    @Override
+    public void SendMessage(String Message) {
+      messageSender.SendMessage(Message);
+    }
+  }
+  
+  /**
+   * bridge
+   */
+  public class bridge {
+  
+    public static void main(String[] args) {
+      Scanner scn = new Scanner(System.in);
+      System.out.println("Select the Message Type 1. For longmessage or 2. For shortmessage");
+      int MessageType = scn.nextInt();
+      
+      if (MessageType == 1) {
+        AbstractMessage longMessage = new LongMessage(new EmailMessageSender());
+        longMessage.SendMessage("Hello this is a long message");
+      } else {
+        AbstractMessage shortMessage = new ShortMessage(new SmsMessageSender());
+        shortMessage.SendMessage("short");
+      }
+    }
+  }
